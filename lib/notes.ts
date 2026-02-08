@@ -10,7 +10,11 @@ const globalForNotes = global as unknown as {
 
 if (!globalForNotes.notes) {
   globalForNotes.notes = [
-    { id: "1", title: "First note", content: "Hello world" },
+    {
+      id: "1",
+      title: "Welcome",
+      content: "This is a demo note. Editing is disabled in production. Works only in localhost.",
+    },
   ];
 }
 
