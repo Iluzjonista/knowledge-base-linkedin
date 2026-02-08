@@ -17,12 +17,12 @@ export default async function AppLayout({
       <aside className="w-64 border-r p-6 space-y-6">
         <h1 className="text-xl font-bold">Sidebar</h1>
 
-        <nav className="space-y-3">
-          <Link href="/notes" className="block hover:underline">
+        <nav className="space-y-3 flex flex-col">
+          <Link href="/notes" className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
             All notes
           </Link>
 
-          <Link href="/editor" className="block text-green-500 hover:underline">
+          <Link href="/editor" className="bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600">
             New note
           </Link>
         </nav>
