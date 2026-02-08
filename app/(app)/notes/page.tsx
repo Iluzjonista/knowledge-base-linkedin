@@ -1,5 +1,6 @@
 import { getNotes } from "@/lib/notes";
 import Link from "next/link";
+import SearchNotes from "../search/page";
 
 export const dynamic = "force-dynamic";
 export default async function NotesPage() {
@@ -11,12 +12,11 @@ export default async function NotesPage() {
       {notes.length === 0 ? (
         <p className="text-gray-500">No notes yet.</p>
       ) : (
-        notes.map((note) => (
-          <Link key={note.id} href={`/notes/${note.id}`}>
-            <div className="border p-4 rounded">{note.title}</div>
-          </Link>
-        ))
+        <>
+          <SearchNotes notes={notes} />
+        </>
       )}
+
       <Link href="/editor" className="bg-orange-500 text-white px-3 py-1 mt-4 inline-block rounded hover:bg-orange-600">
         New Note
       </Link>
