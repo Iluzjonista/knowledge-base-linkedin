@@ -1,37 +1,58 @@
+
+import fs from "fs/promises";
+import path from "path";
+
 export type Note = {
   id: string;
   title: string;
   content: string;
 };
+const filePath = path.join(process.cwd(), "notes.json");
 
-const NOTES: Note[] = [
-  { id: "1", title: "First note", content: "Hello world" },
-];
+async function readNotes(): Promise<Note[]> {
+  try {
+    const data = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+}
+
+async function writeNotes(notes: Note[]) {
+  await fs.writeFile(filePath, JSON.stringify(notes, null, 2));
+}
 
 export async function getNotes() {
-  return NOTES;
+  return readNotes();
 }
 
 export async function getNote(id: string) {
-  return NOTES.find((n) => n.id === id);
+  const notes = await readNotes();
+  return notes.find((n) => n.id === id);
 }
 
 export async function createNote(note: Note) {
-  NOTES.push(note);
+  const notes = await readNotes();
+  notes.push(note);
+  await writeNotes(notes);
 }
 
 export async function deleteNote(id: string) {
-  const index = NOTES.findIndex((n) => n.id === id);
-  if (index !== -1) NOTES.splice(index, 1);
+  const notes = await readNotes();
+  const filtered = notes.filter((n) => n.id !== id);
+  await writeNotes(filtered);
 }
 
 export async function updateNote(
   id: string,
   data: { title: string; content: string }
 ) {
-  const note = NOTES.find((n) => n.id === id);
+  const notes = await readNotes();
+  const note = notes.find((n) => n.id === id);
   if (!note) return;
 
   note.title = data.title;
   note.content = data.content;
+
+  await writeNotes(notes);
 }
