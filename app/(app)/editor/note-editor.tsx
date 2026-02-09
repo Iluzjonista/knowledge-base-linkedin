@@ -44,7 +44,7 @@ export default function NoteEditor() {
 
       <button
         onClick={handleSave}
-        disabled={loading}
+        disabled={loading || !title.trim()}
         className="bg-black text-white px-4 py-2"
       >
         {loading ? "Saving..." : "Save"}

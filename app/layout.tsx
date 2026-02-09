@@ -24,6 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {process.env.NODE_ENV === "production" && (
+        <div className="bg-yellow-100 text-sm p-2">
+          Demo mode — only works in localhost. Editing is disabled in production.
+        </div>
+      )}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
